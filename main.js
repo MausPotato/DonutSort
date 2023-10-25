@@ -1,37 +1,32 @@
 let rl = require("readline");
-let io = rl.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
 process.stdin.setRawMode(true);
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 let tableX = 0;
 let tableY = 0;
-let boxX = 0;
-let boxY = 0;
+let boxNum = 0;
 process.stdin.on("data", function(key) {
   if (key === "q") {
     process.exit();
   }
   if (key === "1") {
-    boxX = 0;
+    boxNum = 0;
     currentDonut = box[0];
     setDonut(tableX, tableY);
-    box[boxX] = [0, []];
+    box[boxNum] = [0, []];
   }
   if (key === "2") {
-    boxX = 1;
+    boxNum = 1;
     currentDonut = box[1];
     setDonut(tableX, tableY);
-    box[boxX] = [0, []];
+    box[boxNum] = [0, []];
   }
   if (key === "3") {
-    boxX = 2;
+    boxNum = 2;
     currentDonut = box[2];
     setDonut(tableX, tableY);
-    box[boxX] = [0, []];
+    box[boxNum] = [0, []];
   }
   checkDonutSet();
   if (key === "w") {
@@ -107,7 +102,7 @@ function setDonut(tableX, tableY) {
 function printScreen() {
   console.clear();
   printTable(tableX, tableY);
-  printBox(boxX, boxY);
+  printBox(boxNum);
   // console.log(donutSet);
 }
 
@@ -139,22 +134,22 @@ function printTable(tableX, tableY) {
   }
 }
 
-function printBox(boxX, boxY) {
-  printRowLine(boxX, box.length);
+function printBox(boxNum) {
+  printRowLine(boxNum, box.length);
   for (let i = 0; i < box.length; i++) {
-    if (i == boxX) {
-      printColumnLine(boxY);
+    if (i == boxNum) {
+      printColumnLine(0);
     } else {
       printColumnLine();
     }
     process.stdout.write(box[i][1].join("").padStart(6));
-    if (i == boxX) {
-      printColumnLine(boxY);
+    if (i == boxNum) {
+      printColumnLine(0);
     } else {
       printColumnLine();
     }
   }
-  printRowLine(boxX, box.length);
+  printRowLine(boxNum, box.length);
 }
 
 function wheresRedLine(num, totalLong) {
